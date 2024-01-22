@@ -1,0 +1,15 @@
+@import "../../../assets/bootstrap.min.css";
+
+.tab-group-card-container {
+  .tab-group-card-button {
+    visibility: hidden;
+  }
+  &:hover {
+    .tab-group-card-button {
+      visibility: visible;
+    }
+  }
+}
+.tab-group-card-row-gap {
+  row-gap: 25px;
+}

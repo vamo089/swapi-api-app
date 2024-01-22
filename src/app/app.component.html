@@ -1,0 +1,43 @@
+<div class="container">
+  <p-fieldset legend="SWAPI sections">
+    <p-toolbar>
+      <div class="p-toolbar-group-center">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <p-inputGroup>
+            <input
+              #searchId
+              [value]="searchValue"
+              (keyup)="searchValue = searchId.value"
+              type="text"
+              pInputText
+            />
+            <button
+              (click)="onSearch()"
+              [disabled]="isLoading"
+              type="button"
+              pButton
+              label="Search"
+            ></button>
+            <button
+              (click)="onReset()"
+              [disabled]="isLoading"
+              type="button"
+              pButton
+              label="x"
+              class="p-button-danger"
+            ></button>
+          </p-inputGroup>
+        </span>
+      </div>
+      <div *ngIf="isLoading" class="p-toolbar-group-end">
+        <i class="pi pi-spin pi-spinner" style="font-size: 1.5rem"></i>
+      </div>
+    </p-toolbar>
+    <app-tab-group
+      *ngIf="swapiSections"
+      [sectionData]="swapiSections"
+    ></app-tab-group>
+    <h2 *ngIf="!swapiSections">Swapi data is coming...</h2>
+  </p-fieldset>
+</div>

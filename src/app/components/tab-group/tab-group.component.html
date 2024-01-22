@@ -1,0 +1,67 @@
+<p-tabView>
+  @if (sectionData) {
+    @for (section of sectionData; let index = $index; track section.name) {
+      <p-tabPanel header="{{ section.name }}({{ section.count }})">
+        <div class="container">
+          <div class="row tab-group-card-row-gap">
+            @for (item of section.results; let index = $index; track item) {
+              <p-card
+                class="col-4 tab-group-card-container"
+                header="{{ getItemName(item) }}"
+                subheader="{{ getSubHeaderTitle(item) }}"
+              >
+                <ng-template class="p-0" pTemplate="footer">
+                  <p-button
+                    (click)="getMoreDetails(section.name, index)"
+                    class="tab-group-card-button"
+                    label="Learn more"
+                    [text]="true"
+                    [raised]="true"
+                    severity="info"
+                  ></p-button>
+                </ng-template>
+              </p-card>
+            }
+          </div>
+        </div>
+        <p-dialog
+          *ngIf="moreDetailsInfo !== undefined"
+          [visible]="!!moreDetailsInfo"
+          [closable]="false"
+        >
+          <p-header>
+            <button
+              type="button"
+              (click)="moreDetailsInfo = undefined"
+              label="Accept"
+            >close</button>
+          </p-header>
+          <p-card
+            class="col-4 tab-group-card-container"
+            header="{{ getItemName(moreDetailsInfo) }}"
+            subheader="{{ getSubHeaderTitle(moreDetailsInfo) }}"
+            [style]="{ width: '360px' }"
+          >
+            <ng-template pTemplate="header">
+              <img
+                alt="{{ getItemName(moreDetailsInfo) }}"
+                src="{{ moreDetailsInfo.image }}"
+              />
+            </ng-template>
+            <ul>
+              @for (
+                item of Object.keys(moreDetailsInfo);
+                let index = $index;
+                track item
+              ) {
+                <li>
+                  <b>{{ item }}:</b> {{ Object.values(moreDetailsInfo)[index] }}
+                </li>
+              }
+            </ul>
+          </p-card>
+        </p-dialog>
+      </p-tabPanel>
+    }
+  }
+</p-tabView>
